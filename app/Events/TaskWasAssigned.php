@@ -8,6 +8,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Support\Facades\Broadcast;
 
 class TaskWasAssigned implements ShouldBroadcast
 {
@@ -34,21 +35,22 @@ class TaskWasAssigned implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        logger('Event was sent on: user.'.$this->task->assignee_id);
-
-        return new Channel('user.'.$this->task->assignee_id);
+        //logger('Event was sent on: App.User.'.$this->task->assignee_id);
+        return new Channel('App.User.'.$this->task->assignee_id);
     }
 
 
     public function broadcastAs()
     {
-        logger('Event was sent on: task.assigned');
-        return 'task.assigned';
+        //logger('Event was sent on: task_assigned');
+        return 'task_assigned';
     }
 
     public function broadcastWith()
     {
-        logger('Data was sent');
+        // logger('Data was sent: socket' . $this->socket);
+        // logger('Data was sent: socket' . Broadcast::socket());
+        // logger('=======================================');
         return [
             'title' => $this->task->description,
             'by' => $this->by_user->name,

@@ -15,5 +15,7 @@ require('laravel-elixir-vue-2');
 
 elixir((mix) => {
     mix.sass('app.scss')
+    .scripts(['custom.js'])
+    .scripts('notifications.js')
        .webpack('app.js');
 });

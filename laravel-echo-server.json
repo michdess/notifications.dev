@@ -1,21 +1,24 @@
 {
-	"appKey": "cie3u0fj502dstdlqjeq45lli47ekbqnd5tfi6g1ee630a7moihd0cjuf8jj",
-	"authHost": null,
+	"appKey": "t6ghchhjp560h0ugborjdn7c7nmglbdc0lorrgkk986qjs1al32hh3kinqf5",
+	"authHost": "http://notifications.dev",
 	"authEndpoint": "/broadcasting/auth",
 	"database": "redis",
 	"databaseConfig": {
-		"redis": {},
+		"redis": {
+			"port": 6379,
+			"host": "localhost"
+		},
 		"sqlite": {
 			"databasePath": "/database/laravel-echo-server.sqlite"
 		}
 	},
-	"devMode": false,
+	"devMode": true,
 	"host": "192.168.10.10",
 	"port": "6003",
 	"referrers": [
 		{
 			"host": "notifications.dev",
-			"apiKey": "4jd93i5pen10u34c9t7n6c30pj007t6pg8u0ljetsqt7bq1dropasinql00n"
+			"apiKey": "1975ggfngj40qco6l56sgh5oj12ccmfgtqmljgr08gbk26oahk5hujhp167i"
 		}
 	],
 	"socketio": {},

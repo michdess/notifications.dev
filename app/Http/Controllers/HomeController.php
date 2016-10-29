@@ -39,6 +39,9 @@ class HomeController extends Controller
 
     public function create()
     {
+
+        $task = Task::find(1);
+
         $users = User::where('id', '!=', \Auth::user()->id)->get();
         return view('create', compact('users'));
     }
@@ -49,7 +52,7 @@ class HomeController extends Controller
 
         if($task){
 
-            $user = User::find($request->assignee_id)->first();
+            $user = User::find($task->assignee_id)->first();
 
             $user->notify(new TaskAssigned($task, \Auth::user()));
  

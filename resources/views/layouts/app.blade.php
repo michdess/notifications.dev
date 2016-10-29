@@ -13,7 +13,8 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
 
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <!-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script> -->
+    <script src="http://192.168.10.10:6003/socket.io/socket.io.js"></script>
     
     <script>
         window.Laravel = <?php echo json_encode([
@@ -80,10 +81,14 @@
                                 </a>
                                 
                                 @if(count(\Auth::user()->notifications))
-                                    <ul class="dropdown-menu" role="menu">
+                                    <ul class="dropdown-menu" role="menu" id="notification-list">
                                         @foreach(\Auth::user()->notifications  as $notification)
                                             <li><a href="/home">{{$notification->data['by']}} asssigned to you the task '{{$notification->data['title']}}'</a></li>
                                         @endforeach
+                                    </ul>
+                                @else
+                                    <ul class="dropdown-menu" role="menu" id="notification-list">
+                                            <li><a href="#">No new notifications</a></li>
                                     </ul>
                                 @endif
                             </li>
@@ -99,14 +104,11 @@
     </div>
 
     <!-- Scripts -->
+    <script> var userId = {{\Auth::user()->id}}; </script>
     <script src="/js/app.js"></script>
 
-    <script>
-
-            Echo.channel('user.{{\Auth::user()->id}}')
-                .listen('task.assigned', (e) => {
-                    console.log(e);
-                });
-    </script>
+    @if (!Auth::guest())
+    <script src="/js/notifications.js"></script>
+    @endif
 </body>
 </html>
