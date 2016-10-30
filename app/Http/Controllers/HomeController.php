@@ -52,7 +52,7 @@ class HomeController extends Controller
 
         if($task){
 
-            $user = User::find($task->assignee_id)->first();
+            $user = User::find($task->assignee_id);
 
             $user->notify(new TaskAssigned($task, \Auth::user()));
  

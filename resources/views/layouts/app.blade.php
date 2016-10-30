@@ -104,7 +104,9 @@
     </div>
 
     <!-- Scripts -->
-    <script> var userId = {{\Auth::user()->id}}; </script>
+    @if (!Auth::guest())
+        <script> var userId = {{\Auth::user()->id}}; </script>
+    @endif
     <script src="/js/app.js"></script>
 
     @if (!Auth::guest())
