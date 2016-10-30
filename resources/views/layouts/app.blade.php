@@ -4,9 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -83,7 +81,7 @@
                                 @if(count(\Auth::user()->notifications))
                                     <ul class="dropdown-menu" role="menu" id="notification-list">
                                         @foreach(\Auth::user()->notifications  as $notification)
-                                            <li><a href="/home">{{$notification->data['by']}} asssigned to you the task '{{$notification->data['title']}}'</a></li>
+                                            <li><a href="/home">{{$notification->data['body']}}</a></li>
                                         @endforeach
                                     </ul>
                                 @else

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Events\TaskWasAssigned;
 use App\Notifications\TaskAssigned;
 
+
 class HomeController extends Controller
 {
     /**

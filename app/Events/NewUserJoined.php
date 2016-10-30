@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -9,23 +10,21 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-
-class TaskWasAssigned implements ShouldBroadcast
+class NewUserJoined implements ShouldBroadcast
 {
+    protected $user;
+
     use InteractsWithSockets, SerializesModels;
 
-    protected $task;
-    protected $by_user;
-
     /**
-     * Create a new notification instance.
+     * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($task, $by_user)
+    public function __construct(User $user)
     {
-        $this->task = $task;
-        $this->by_user = $by_user;
+        //
+        $this->user = $user;
     }
 
     /**
@@ -35,15 +34,12 @@ class TaskWasAssigned implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        //logger('Event was sent on: App.User.'.$this->task->assignee_id);
-        return new PrivateChannel('App.User.'.$this->task->assignee_id);
+        return new Channel('public_notifications');
     }
-
 
     public function broadcastAs()
     {
-        //logger('Event was sent on: task_assigned');
-        return 'task_assigned';
+        return 'user_joined';
     }
 
     public function broadcastWith()
@@ -52,9 +48,8 @@ class TaskWasAssigned implements ShouldBroadcast
         // logger('Data was sent: socket' . Broadcast::socket());
         // logger('=======================================');
         return [
-            'title' => $this->task->description,
-            'by' => $this->by_user->name,
-            'body' => $this->by_user->name. ' asssigned to you the task ' . $this->task->description,
+            'user' => $this->user,
+            'body' => $this->user->name . " joined the platform",
         ];
     }
 }

@@ -2,30 +2,28 @@
 
 namespace App\Notifications;
 
+use App\User;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class TaskAssigned extends Notification implements ShouldBroadcast, ShouldQueue
+class UserJoined extends Notification implements ShouldQueue
 {
-    protected $task;
-    protected $by_user;
+    protected $user;
 
-    use Queueable, SerializesModels;
+    use Queueable;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($task, $by_user)
+    public function __construct(User $user)
     {
         //
-        $this->task = $task;
-        $this->by_user = $by_user;
+        $this->user = $user;
     }
 
     /**
@@ -36,7 +34,7 @@ class TaskAssigned extends Notification implements ShouldBroadcast, ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['database', 'mail'];
+        return ['database'];
     }
 
     /**
@@ -48,9 +46,9 @@ class TaskAssigned extends Notification implements ShouldBroadcast, ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('A new task was assigned to you by ' . $this->by_user->name. '.')
-                    ->action('See it here', 'http://notifications.dev/home')
-                    ->line('Get some work done you bum!');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', 'https://laravel.com')
+                    ->line('Thank you for using our application!');
     }
 
     /**
@@ -62,10 +60,8 @@ class TaskAssigned extends Notification implements ShouldBroadcast, ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'title' => $this->task->description,
-            'by' => $this->by_user->name,
-            'body' => $this->by_user->name. ' asssigned to you the task ' . $this->task->description,
+            'user' => $this->user,
+            'body' => $this->user->name . " joined the platform",
         ];
     }
-    
 }

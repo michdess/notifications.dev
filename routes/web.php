@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Route::post('broadcasting/auth', function(Request $request){
+// 	logger($request->all());
+// });
+
 
 Route::get('/', function () {
     return view('welcome');

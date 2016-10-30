@@ -44,5 +44,3 @@ window.Echo = new Echo({
     host: 'http://192.168.10.10:6003'
 });
 
-
-

@@ -1,5 +1,10 @@
 //LISTENERS
-Echo.listen('App.User.' + userId, '.task_assigned', function(event) {
+Echo.private('App.User.' + userId , '.task_assigned', function(event) {
+          notification_was_received(event);
+          console.log('task received event');
+                 });
+
+Echo.listen('public_notifications', '.user_joined', function(event) {
           notification_was_received(event);
           console.log('task received event');
  });
