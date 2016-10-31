@@ -11,9 +11,9 @@
                     <p>My tasks</p>
                     @if(count($tasks))
                     
-                        <ul>
+                        <ul id="task-list">
                             @foreach($tasks as $task)
-                                <li>{{$task->description}} by {{$task->by_user->name}} on {{$task->created_at->format('dS m Y H:i')}}</li>
+                                <li>{{$task->description}} by {{$task->by_user->name}}</li>
                             @endforeach
                         </ul>
 
